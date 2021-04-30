@@ -12,6 +12,7 @@ const intervalSlider = setInterval(leftCheck, 3200);
 const firstSection = document.getElementById("first-box");
 const secondSection = document.getElementById("second-box");
 const thirdSection = document.getElementById("third-box");
+const fiveSection = document.getElementById("five-section");
 
 const rightImage = document.querySelector(".right-images");
 const leftImage = document.querySelector(".left-images");
@@ -48,59 +49,48 @@ closeImgBtn.addEventListener('click', e => {
 
 });
 
-function indicator(e){
-  colorLine.style.left=e.offsetLeft+"px";
-  colorLine.style.width=e.offsetWidth+"px";
-
-//if link is other than homePage, set background to pink
-  e.textContent == "Strona Główna" ? colorLine.style.background = "#6FC20C" : colorLine.style.background = "#EBC2C9";
-}
+items[2].addEventListener('click', () => {
+  window.scrollTo({
+  top: gallery.offsetTop-200,
+  left: 0,
+  behavior: 'smooth'
+});
+})
 
 function scrollIndicator(e){
-  console.log(e.srcElement.scrollingElement.scrollTop);
   const currentScrollHeight = e.srcElement.scrollingElement.scrollTop;
-  if(currentScrollHeight < firstSectionHeight-firstSectionHeight*0.2){
-    colorLine.style.left=items[0].offsetLeft+"px";
-    colorLine.style.width=items[0].offsetWidth+"px";
+  if(currentScrollHeight < secondSection.offsetTop-300){
+    colorLineChanger(0);
     colorLine.style.background = "#6FC20C";
   }
-  if(currentScrollHeight > firstSectionHeight){
-    colorLine.style.left=items[1].offsetLeft+"px";
-    colorLine.style.width=items[1].offsetWidth+"px";
+  if(currentScrollHeight > secondSection.offsetTop-100){
+    colorLineChanger(1);
     colorLine.style.background = "#EBC2C9";
   }
-  if(currentScrollHeight > firstPlusSecondHeight-200){
-    colorLine.style.left=items[2].offsetLeft+"px";
-    colorLine.style.width=items[2].offsetWidth+"px";
-    colorLine.style.background = "#EBC2C9";
+  if(currentScrollHeight > gallery.offsetTop-300){
+    colorLineChanger(2);
   }
-  if(currentScrollHeight > firstPlusSecondHeight+400){
-    colorLine.style.left=items[3].offsetLeft+"px";
-    colorLine.style.width=items[3].offsetWidth+"px";
-    colorLine.style.background = "#EBC2C9";
+  if(currentScrollHeight > thirdSection.offsetTop-200){
+    colorLineChanger(3);
   }
-  if(currentScrollHeight > oneTwoThreeHeight+400){
-    colorLine.style.left=items[4].offsetLeft+"px";
-    colorLine.style.width=items[4].offsetWidth+"px";
-    colorLine.style.background = "#EBC2C9";
+  if(currentScrollHeight > fiveSection.offsetTop-200){
+    colorLineChanger(4);
   }
+}
+
+//set left position and properly width to each link
+function colorLineChanger(posOfElement){
+  colorLine.style.left=items[posOfElement].offsetLeft+"px";
+  colorLine.style.width=items[posOfElement].offsetWidth+"px";
 }
 
 document.addEventListener('scroll', scrollIndicator);
 
-items.forEach(link => {
-  link.addEventListener('click', (e)=> {
-    indicator(e.target);
-  });
-});
-
+//slider feature
 let arrBox = [a, b, c, d, e];
 let arrLeftPos = [-365, 0, 365, 730, 1095];
 
 const firstSectionHeight = firstSection.scrollHeight - firstSection.scrollHeight*0.1;
-// const firstSectionHeight = firstSection.scrollHeight - firstSection.scrollHeight*0.1;
-// const firstSectionHeight = firstSection.scrollHeight - firstSection.scrollHeight*0.1;
-// console.log(thirdSection.scrollTop);
 const firstPlusSecondHeight = (firstSection.scrollHeight + secondSection.scrollHeight) - (firstSection.scrollHeight + secondSection.scrollHeight)*0.2 +400;
 
 

@@ -85,6 +85,7 @@ ul {
 
 .nav-right li {
   margin: 0 40px;
+  cursor: pointer;
 }
 
 a {
