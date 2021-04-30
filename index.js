@@ -19,7 +19,7 @@ const leftText = document.querySelector(".third-content");
 const leftBg = document.querySelector(".third-content-box");
 
 const colorLine = document.querySelector('.menu-line');
-const item = document.querySelectorAll('.nav-right li');
+const items = document.querySelectorAll('.nav-right li');
 
 const gallery = document.getElementById('gallery');
 const backLayout = document.querySelector('.back-layout');
@@ -34,6 +34,8 @@ gallery.addEventListener('click', e => {
   // clickedImg.style.display = "block";
   clickedImg.classList.add('clicked-img-active');
   choosenClickedImg.src = `${e.target.currentSrc}`;
+  document.body.style.overflow = "hidden";
+
 });
 
 //close Gallery
@@ -41,17 +43,52 @@ closeImgBtn.addEventListener('click', e => {
   backLayout.style.display = "none";
   // clickedImg.style.display = "none";
   clickedImg.classList.remove('clicked-img-active');
+  document.body.style.overflow = "auto";
+  document.body.style.overflowX = "hidden";
 
 });
 
 function indicator(e){
   colorLine.style.left=e.offsetLeft+"px";
-  colorLine.style.width=e.offsetWidth*1+"px";
+  colorLine.style.width=e.offsetWidth+"px";
+
 //if link is other than homePage, set background to pink
   e.textContent == "Strona Główna" ? colorLine.style.background = "#6FC20C" : colorLine.style.background = "#EBC2C9";
 }
 
-item.forEach(link => {
+function scrollIndicator(e){
+  console.log(e.srcElement.scrollingElement.scrollTop);
+  const currentScrollHeight = e.srcElement.scrollingElement.scrollTop;
+  if(currentScrollHeight < firstSectionHeight-firstSectionHeight*0.2){
+    colorLine.style.left=items[0].offsetLeft+"px";
+    colorLine.style.width=items[0].offsetWidth+"px";
+    colorLine.style.background = "#6FC20C";
+  }
+  if(currentScrollHeight > firstSectionHeight){
+    colorLine.style.left=items[1].offsetLeft+"px";
+    colorLine.style.width=items[1].offsetWidth+"px";
+    colorLine.style.background = "#EBC2C9";
+  }
+  if(currentScrollHeight > firstPlusSecondHeight-200){
+    colorLine.style.left=items[2].offsetLeft+"px";
+    colorLine.style.width=items[2].offsetWidth+"px";
+    colorLine.style.background = "#EBC2C9";
+  }
+  if(currentScrollHeight > firstPlusSecondHeight+400){
+    colorLine.style.left=items[3].offsetLeft+"px";
+    colorLine.style.width=items[3].offsetWidth+"px";
+    colorLine.style.background = "#EBC2C9";
+  }
+  if(currentScrollHeight > oneTwoThreeHeight+400){
+    colorLine.style.left=items[4].offsetLeft+"px";
+    colorLine.style.width=items[4].offsetWidth+"px";
+    colorLine.style.background = "#EBC2C9";
+  }
+}
+
+document.addEventListener('scroll', scrollIndicator);
+
+items.forEach(link => {
   link.addEventListener('click', (e)=> {
     indicator(e.target);
   });
@@ -60,9 +97,12 @@ item.forEach(link => {
 let arrBox = [a, b, c, d, e];
 let arrLeftPos = [-365, 0, 365, 730, 1095];
 
-
+const firstSectionHeight = firstSection.scrollHeight - firstSection.scrollHeight*0.1;
+// const firstSectionHeight = firstSection.scrollHeight - firstSection.scrollHeight*0.1;
+// const firstSectionHeight = firstSection.scrollHeight - firstSection.scrollHeight*0.1;
 // console.log(thirdSection.scrollTop);
 const firstPlusSecondHeight = (firstSection.scrollHeight + secondSection.scrollHeight) - (firstSection.scrollHeight + secondSection.scrollHeight)*0.2 +400;
+
 
 const oneTwoThreeHeight = (firstSection.scrollHeight + secondSection.scrollHeight + thirdSection.scrollHeight) - (firstSection.scrollHeight + secondSection.scrollHeight + thirdSection.scrollHeight)*0.2 +400;
 
