@@ -22,10 +22,11 @@ const leftBg = document.querySelector(".third-content-box");
 let arrBox = [a, b, c, d, e];
 let arrLeftPos = [-365, 0, 365, 730, 1095];
 
-// console.log(thirdSection.scrollTop);
-const firstPlusSecondHeight = (firstSection.scrollHeight + secondSection.scrollHeight) - (firstSection.scrollHeight + secondSection.scrollHeight)*0.2;
 
-const oneTwoThreeHeight = (firstSection.scrollHeight + secondSection.scrollHeight + thirdSection.scrollHeight) - (firstSection.scrollHeight + secondSection.scrollHeight + thirdSection.scrollHeight)*0.1;
+// console.log(thirdSection.scrollTop);
+const firstPlusSecondHeight = (firstSection.scrollHeight + secondSection.scrollHeight) - (firstSection.scrollHeight + secondSection.scrollHeight)*0.2 -400;
+
+const oneTwoThreeHeight = (firstSection.scrollHeight + secondSection.scrollHeight + thirdSection.scrollHeight) - (firstSection.scrollHeight + secondSection.scrollHeight + thirdSection.scrollHeight)*0.2 -400;
 
 left.addEventListener("click", () => {
   leftCheck();
@@ -41,9 +42,8 @@ right.addEventListener("click", () => {
 
 document.addEventListener('keydown', logKey);
 
-document.addEventListener('scroll', scrollAnimationThirdSection);
-document.addEventListener('scroll', scrollAnimationFifthSection);
-document.addEventListener('scroll', scrollFun);
+document.addEventListener('scroll', scrollEvents);
+// document.addEventListener('scroll', scrollFun);
 
 function logKey(e) {
   e = e || window.event;
@@ -55,11 +55,12 @@ function logKey(e) {
   clearInterval(intervalSlider);
 };
 
-function scrollAnimationFifthSection(e){
+function scrollEvents(e){
 
-}
+  if(e.srcElement.scrollingElement.scrollTop > firstSection.scrollHeight*0.4){
+    orderBox.classList.remove('order-box-active');
 
-function scrollAnimationThirdSection(e) {
+  }
   if(e.srcElement.scrollingElement.scrollTop > firstPlusSecondHeight){
     rightImage.classList.add("anim-active");
     leftImage.classList.add("anim-active");
@@ -67,15 +68,13 @@ function scrollAnimationThirdSection(e) {
     leftBg.classList.add("third-content-box-second-active");
     document.querySelector(".third-content-box-second").classList.add("third-content-box-second-active");
   }
-}
-
-function scrollAnimationFifthSection(e){
   if(e.srcElement.scrollingElement.scrollTop > oneTwoThreeHeight){
     document.querySelector(".five-left").classList.add("anim-active");
     document.querySelector(".five-adress").classList.add("anim-active");
     document.querySelector(".five-section-title").classList.add("anim-active");
   }
 }
+
 
 function scrollFun(e) {
   console.log(e.srcElement.scrollingElement.scrollTop);
@@ -89,20 +88,37 @@ function scrollFun(e) {
 intervalSlider;
 
 // POP UP
+// const button = document.querySelector("button");
+// const popup = document.querySelector(".popup");
+// const layout = document.querySelector(".layout");
+//
+//
+// button.addEventListener('click', function(){
+//   popup.classList.add("popup-active");
+//   layout.classList.add("layout-active");
+// })
+//
+// layout.addEventListener('click', () => {
+//   popup.classList.remove("popup-active");
+//   layout.classList.remove("layout-active");
+// })
+
 const button = document.querySelector("button");
-const popup = document.querySelector(".popup");
-const layout = document.querySelector(".layout");
+const orderBox = document.querySelector('.order-box');
+const closeOrderBox = document.querySelector('.close-order-box');
 
 
-button.addEventListener('click', function(){
-  popup.classList.add("popup-active");
-  layout.classList.add("layout-active");
-})
+button.addEventListener('click', () => {
+  orderBox.classList.add('order-box-active');
+  // orderBox.style.left = "0";
+  closeOrderBox.classList.add('close-order-box-active');
+});
 
-layout.addEventListener('click', () => {
-  popup.classList.remove("popup-active");
-  layout.classList.remove("layout-active");
-})
+closeOrderBox.addEventListener('click', () => {
+  orderBox.classList.remove('order-box-active');
+  closeOrderBox.classList.remove('close-order-box-active');
+
+});
 
 
 
@@ -165,4 +181,8 @@ function rightCheck() {
     }
   }
   console.log(`${arrBox[0]}: ${arrBox[0].style.left}`);
+}
+
+function myNewGit(){
+
 }
