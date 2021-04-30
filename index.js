@@ -18,15 +18,53 @@ const leftImage = document.querySelector(".left-images");
 const leftText = document.querySelector(".third-content");
 const leftBg = document.querySelector(".third-content-box");
 
+const colorLine = document.querySelector('.menu-line');
+const item = document.querySelectorAll('.nav-right li');
+
+const gallery = document.getElementById('gallery');
+const backLayout = document.querySelector('.back-layout');
+const clickedImg = document.querySelector('.clicked-img');
+const choosenClickedImg = document.querySelector('.clicked-img img');
+const closeImgBtn = document.querySelector('.close-img-btn');
+
+
+//gallery function
+gallery.addEventListener('click', e => {
+  backLayout.style.display = "block";
+  // clickedImg.style.display = "block";
+  clickedImg.classList.add('clicked-img-active');
+  choosenClickedImg.src = `${e.target.currentSrc}`;
+});
+
+//close Gallery
+closeImgBtn.addEventListener('click', e => {
+  backLayout.style.display = "none";
+  // clickedImg.style.display = "none";
+  clickedImg.classList.remove('clicked-img-active');
+
+});
+
+function indicator(e){
+  colorLine.style.left=e.offsetLeft+"px";
+  colorLine.style.width=e.offsetWidth*1+"px";
+//if link is other than homePage, set background to pink
+  e.textContent == "Strona Główna" ? colorLine.style.background = "#6FC20C" : colorLine.style.background = "#EBC2C9";
+}
+
+item.forEach(link => {
+  link.addEventListener('click', (e)=> {
+    indicator(e.target);
+  });
+});
 
 let arrBox = [a, b, c, d, e];
 let arrLeftPos = [-365, 0, 365, 730, 1095];
 
 
 // console.log(thirdSection.scrollTop);
-const firstPlusSecondHeight = (firstSection.scrollHeight + secondSection.scrollHeight) - (firstSection.scrollHeight + secondSection.scrollHeight)*0.2 -400;
+const firstPlusSecondHeight = (firstSection.scrollHeight + secondSection.scrollHeight) - (firstSection.scrollHeight + secondSection.scrollHeight)*0.2 +400;
 
-const oneTwoThreeHeight = (firstSection.scrollHeight + secondSection.scrollHeight + thirdSection.scrollHeight) - (firstSection.scrollHeight + secondSection.scrollHeight + thirdSection.scrollHeight)*0.2 -400;
+const oneTwoThreeHeight = (firstSection.scrollHeight + secondSection.scrollHeight + thirdSection.scrollHeight) - (firstSection.scrollHeight + secondSection.scrollHeight + thirdSection.scrollHeight)*0.2 +400;
 
 left.addEventListener("click", () => {
   leftCheck();
@@ -71,21 +109,10 @@ function scrollEvents(e){
   if(e.srcElement.scrollingElement.scrollTop > oneTwoThreeHeight){
     document.querySelector(".five-left").classList.add("anim-active");
     document.querySelector(".five-adress").classList.add("anim-active");
-    document.querySelector(".five-section-title").classList.add("anim-active");
+    document.querySelector(".five-section-title").classList.add("contact-header-active");
   }
 }
 
-
-function scrollFun(e) {
-  console.log(e.srcElement.scrollingElement.scrollTop);
-  if(e.srcElement.scrollingElement.scrollTop > oneTwoThreeHeight){
-    console.log("WTD");
-  }
-  // console.log(e.scrollTop);
-  // console.log(thirdSection.scrollHeight);
-};
-
-intervalSlider;
 
 // POP UP
 // const button = document.querySelector("button");
