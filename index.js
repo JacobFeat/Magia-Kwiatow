@@ -9,24 +9,92 @@ const right = document.querySelector(".slides button:last-child");
 
 const intervalSlider = setInterval(leftCheck, 3200);
 
-const firstSection = document.getElementById("first-box");
+const homePage = document.getElementById("home-page");
 const secondSection = document.getElementById("second-box");
 const thirdSection = document.getElementById("third-box");
+const fiveSection = document.getElementById("five-section");
 
 const rightImage = document.querySelector(".right-images");
 const leftImage = document.querySelector(".left-images");
 const leftText = document.querySelector(".third-content");
 const leftBg = document.querySelector(".third-content-box");
 
+const colorLine = document.querySelector('.menu-line');
+const items = document.querySelectorAll('.nav-right li');
 
+const gallery = document.getElementById('gallery');
+const backLayout = document.querySelector('.back-layout');
+const clickedImg = document.querySelector('.clicked-img');
+const choosenClickedImg = document.querySelector('.clicked-img img');
+const closeImgBtn = document.querySelector('.close-img-btn');
+
+
+//gallery function
+gallery.addEventListener('click', e => {
+  backLayout.style.display = "block";
+  // clickedImg.style.display = "block";
+  clickedImg.classList.add('clicked-img-active');
+  choosenClickedImg.src = `${e.target.currentSrc}`;
+  document.body.style.overflow = "hidden";
+
+});
+
+//close Gallery
+closeImgBtn.addEventListener('click', e => {
+  backLayout.style.display = "none";
+  // clickedImg.style.display = "none";
+  clickedImg.classList.remove('clicked-img-active');
+  document.body.style.overflow = "auto";
+  document.body.style.overflowX = "hidden";
+
+});
+
+items[2].addEventListener('click', () => {
+  window.scrollTo({
+  top: gallery.offsetTop-200,
+  left: 0,
+  behavior: 'smooth'
+});
+})
+
+function scrollIndicator(e){
+  const currentScrollHeight = e.srcElement.scrollingElement.scrollTop;
+  if(currentScrollHeight < secondSection.offsetTop-300){
+    colorLineChanger(0);
+    colorLine.style.background = "#6FC20C";
+  }
+  if(currentScrollHeight > secondSection.offsetTop-100){
+    colorLineChanger(1);
+    colorLine.style.background = "#EBC2C9";
+  }
+  if(currentScrollHeight > gallery.offsetTop-300){
+    colorLineChanger(2);
+  }
+  if(currentScrollHeight > thirdSection.offsetTop-200){
+    colorLineChanger(3);
+  }
+  if(currentScrollHeight > fiveSection.offsetTop-200){
+    colorLineChanger(4);
+  }
+}
+
+//set left position and properly width to each link
+function colorLineChanger(posOfElement){
+  colorLine.style.left=items[posOfElement].offsetLeft+"px";
+  colorLine.style.width=items[posOfElement].offsetWidth+"px";
+}
+
+document.addEventListener('scroll', scrollIndicator);
+
+//slider feature
 let arrBox = [a, b, c, d, e];
 let arrLeftPos = [-365, 0, 365, 730, 1095];
 
+const homePageHeight = homePage.scrollHeight - homePage.scrollHeight*0.1;
+const firstPlusSecondHeight = (homePage.scrollHeight + secondSection.scrollHeight) - (homePage.scrollHeight + secondSection.scrollHeight)*0.2 +400;
 
-// console.log(thirdSection.scrollTop);
-const firstPlusSecondHeight = (firstSection.scrollHeight + secondSection.scrollHeight) - (firstSection.scrollHeight + secondSection.scrollHeight)*0.2 -400;
 
-const oneTwoThreeHeight = (firstSection.scrollHeight + secondSection.scrollHeight + thirdSection.scrollHeight) - (firstSection.scrollHeight + secondSection.scrollHeight + thirdSection.scrollHeight)*0.2 -400;
+const oneTwoThreeHeight = (homePage.scrollHeight + secondSection.scrollHeight + thirdSection.scrollHeight) - (homePage.scrollHeight + secondSection.scrollHeight + thirdSection.scrollHeight)*0.2 +400;
 
 left.addEventListener("click", () => {
   leftCheck();
@@ -57,7 +125,7 @@ function logKey(e) {
 
 function scrollEvents(e){
 
-  if(e.srcElement.scrollingElement.scrollTop > firstSection.scrollHeight*0.4){
+  if(e.srcElement.scrollingElement.scrollTop > homePage.scrollHeight*0.4){
     orderBox.classList.remove('order-box-active');
 
   }
@@ -71,21 +139,10 @@ function scrollEvents(e){
   if(e.srcElement.scrollingElement.scrollTop > oneTwoThreeHeight){
     document.querySelector(".five-left").classList.add("anim-active");
     document.querySelector(".five-adress").classList.add("anim-active");
-    document.querySelector(".five-section-title").classList.add("anim-active");
+    document.querySelector(".five-section-title").classList.add("contact-header-active");
   }
 }
 
-
-function scrollFun(e) {
-  console.log(e.srcElement.scrollingElement.scrollTop);
-  if(e.srcElement.scrollingElement.scrollTop > oneTwoThreeHeight){
-    console.log("WTD");
-  }
-  // console.log(e.scrollTop);
-  // console.log(thirdSection.scrollHeight);
-};
-
-intervalSlider;
 
 // POP UP
 // const button = document.querySelector("button");
