@@ -9,7 +9,7 @@ const right = document.querySelector(".slides button:last-child");
 
 const intervalSlider = setInterval(leftCheck, 3200);
 
-const firstSection = document.getElementById("first-box");
+const homePage = document.getElementById("home-page");
 const secondSection = document.getElementById("second-box");
 const thirdSection = document.getElementById("third-box");
 const fiveSection = document.getElementById("five-section");
@@ -90,11 +90,11 @@ document.addEventListener('scroll', scrollIndicator);
 let arrBox = [a, b, c, d, e];
 let arrLeftPos = [-365, 0, 365, 730, 1095];
 
-const firstSectionHeight = firstSection.scrollHeight - firstSection.scrollHeight*0.1;
-const firstPlusSecondHeight = (firstSection.scrollHeight + secondSection.scrollHeight) - (firstSection.scrollHeight + secondSection.scrollHeight)*0.2 +400;
+const homePageHeight = homePage.scrollHeight - homePage.scrollHeight*0.1;
+const firstPlusSecondHeight = (homePage.scrollHeight + secondSection.scrollHeight) - (homePage.scrollHeight + secondSection.scrollHeight)*0.2 +400;
 
 
-const oneTwoThreeHeight = (firstSection.scrollHeight + secondSection.scrollHeight + thirdSection.scrollHeight) - (firstSection.scrollHeight + secondSection.scrollHeight + thirdSection.scrollHeight)*0.2 +400;
+const oneTwoThreeHeight = (homePage.scrollHeight + secondSection.scrollHeight + thirdSection.scrollHeight) - (homePage.scrollHeight + secondSection.scrollHeight + thirdSection.scrollHeight)*0.2 +400;
 
 left.addEventListener("click", () => {
   leftCheck();
@@ -125,7 +125,7 @@ function logKey(e) {
 
 function scrollEvents(e){
 
-  if(e.srcElement.scrollingElement.scrollTop > firstSection.scrollHeight*0.4){
+  if(e.srcElement.scrollingElement.scrollTop > homePage.scrollHeight*0.4){
     orderBox.classList.remove('order-box-active');
 
   }
